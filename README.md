@@ -4,6 +4,10 @@
 
 SmartTemplates for VSCode is a powerful extension that boosts your coding efficiency by providing context-sensitive, customizable file templates. With automatic detection and suggestion of templates based on new file creation, it's an essential tool for any developer looking to streamline their workflow.
 
+## Repository
+
+You can find the source code for SmartTemplates in the GitHub repository: [SmartTemplates on GitHub](https://github.com/tnesbitt210/smart-file-templates).
+
 ## Features
 
 - **Automatic Template Suggestions:** Get relevant templates suggested automatically when you create a new file.
