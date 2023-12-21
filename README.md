@@ -58,7 +58,7 @@ The `file_pattern` uses regular expressions to match file names, allowing for so
 
 ## Support and Contributions
 
-For support or to contribute to SmartTemplates, please visit our GitHub repository.
+For support or to contribute to SmartTemplates, please visit our [GitHub repository](https://github.com/tnesbitt210/smart-file-templates).
 
 ## License
 
