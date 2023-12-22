@@ -33,25 +33,26 @@ Download and install [Smart File Templates](https://marketplace.visualstudio.com
 
 > ```
 > {
->   "file_pattern_regex": {
->     "label": "Template Label",
->     "template_path": "path/to/template"
->   }
->   // Additional templates can be added here
+>  "file_pattern_regex": {
+>    "label": "Template Label",
+>    "template_path": "path/to/template"
+>  }
+>  // Additional templates can be added here
 > }
 > ```
 
-The `file_pattern_regex` uses regular expressions to match file names, allowing for sophisticated and precise template suggestions. See examples below.
+- **Leveraging Regex:** Make the most of regular expressions in `file_pattern_regex` to match files more accurately and offer contextually relevant templates.
+- **Dynamic Template Variables:** Smart File Templates for VSCode utilizes Mustache templating to provide dynamic content in your file templates. This feature allows you to insert context-specific data into your templates automatically. Below are the available Mustache variables:
 
-### Using the Extension
+| Variable                    | Description                                                                                 | Example Usage                         |
+| --------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------- |
+| `{{file_path}}`             | Inserts the relative path of the file from the root of your workspace.                      | N/A                                   |
+| `{{date}}`                  | Adds the current date in a localized date string format.                                    | N/A                                   |
+| `{{file_name_snake_case}}`  | Provides the file name in snake_case format.                                                | `my_new_file.tsx` for `MyNewFile.tsx` |
+| `{{file_name_pascal_case}}` | Converts the file name to PascalCase format, useful for classes and components.             | `MyNewFile` for `my-new-file.tsx`     |
+| `{{file_name_camel_case}}`  | Transforms the file name into camelCase format, typically used for variables and functions. | `myNewFile` for `my-new-file.tsx`     |
 
-- **Selecting a Template:** Upon creating a new file, if applicable, a Quick Pick dialog will appear, letting you choose a suitable template. The chosen template will populate the new file.
-- **Dynamic Template Variables:** Utilize variables like `file_path`, `date`, `file_name_snake_case`, `file_name_pascal_case`, and `file_name_camel_case` in your templates. Add custom variables in `smartTemplates.customData` in the VSCode settings.
-
-### Customizing Templates
-
-- **Adding and Modifying Templates:** Tailor your templates according to your project's requirements, including templates for various file types and naming conventions.
-- **Leveraging Regex:** Make the most of regular expressions in `file_pattern` to match files more accurately and offer contextually relevant templates.
+Additionally, you can extend the templating capabilities by adding custom variables in the VSCode settings under `smartTemplates.customData`. This feature allows you to tailor the templating system to your specific project needs and workflows, enhancing the flexibility and power of Smart File Templates.
 
 ## Code samples from above demo
 
@@ -76,15 +77,15 @@ The `file_pattern_regex` uses regular expressions to match file names, allowing 
 > import React from 'react';
 >
 > interface {{file_name_pascal_case}}Props {
->     // Define your component props here
+>    // Define your component props here
 > }
 >
 > const {{file_name_pascal_case}}: React.FC<{{file_name_pascal_case}}Props> = (props) => {
->     return (
->         <div>
+>    return (
+>        <div>
 >
->         </div>
->     );
+>        </div>
+>    );
 > };
 >
 > export default {{file_name_pascal_case}};
@@ -97,17 +98,17 @@ The `file_pattern_regex` uses regular expressions to match file names, allowing 
 >
 > describe('Test {{file_name_pascal_case}}', () => {
 >
->     beforeAll(() => {
->         // This code runs a single time, before all the tests.
->     });
+>    beforeAll(() => {
+>        // This code runs a single time, before all the tests.
+>    });
 >
->     beforeEach(() => {
->         // This code runs before each test in this describe block
->     });
+>    beforeEach(() => {
+>        // This code runs before each test in this describe block
+>    });
 >
->     it('should do something', () => {
->         expect(true).toBe(true); // Replace with your actual test
->     });
+>    it('should do something', () => {
+>        expect(true).toBe(true); // Replace with your actual test
+>    });
 >
 > });
 > ```
