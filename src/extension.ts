@@ -153,7 +153,7 @@ async function transformTemplatesConfig(
 function getMustacheData(uri: vscode.Uri): Record<string, any> {
   return {
     file_path: getRelativeFilePath(uri),
-    date: new Date().toISOString().split("T")[0], // Format as YYYY-MM-DD    file_name_snake_case: toSnakeCase(uri),
+    date: new Date().toISOString().split("T")[0], // Format as YYYY-MM-DD
     file_name_pascal_case: toPascalCase(uri),
     file_name_camel_case: toCamelCase(uri),
     file_name_snake_case: toSnakeCase(uri),
