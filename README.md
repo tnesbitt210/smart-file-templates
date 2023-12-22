@@ -33,7 +33,7 @@ Download and install [Smart File Templates](https://marketplace.visualstudio.com
 
 > ```
 > {
->   "file_pattern": {
+>   "file_pattern_regex": {
 >     "label": "Template Label",
 >     "template_path": "path/to/template"
 >   }
@@ -41,12 +41,12 @@ Download and install [Smart File Templates](https://marketplace.visualstudio.com
 > }
 > ```
 
-The `file_pattern` uses regular expressions to match file names, allowing for sophisticated and precise template suggestions.
+The `file_pattern_regex` uses regular expressions to match file names, allowing for sophisticated and precise template suggestions. See examples below.
 
 ### Using the Extension
 
 - **Selecting a Template:** Upon creating a new file, if applicable, a Quick Pick dialog will appear, letting you choose a suitable template. The chosen template will populate the new file.
-- **Dynamic Template Variables:** Utilize variables like `file_path`, `date`, `file_name_snake_case`, `file_name_pascal_case`, and `file_name_camel_case` in your templates. Add custom variables in `Smart File Templates.customData` in the VSCode settings.
+- **Dynamic Template Variables:** Utilize variables like `file_path`, `date`, `file_name_snake_case`, `file_name_pascal_case`, and `file_name_camel_case` in your templates. Add custom variables in `smartTemplates.customData` in the VSCode settings.
 
 ### Customizing Templates
 
@@ -70,7 +70,7 @@ The `file_pattern` uses regular expressions to match file names, allowing for so
 > }
 > ```
 
-**.react_component.template**
+**.templates/react_component.template**
 
 > ```js
 > import React from 'react';
@@ -90,7 +90,7 @@ The `file_pattern` uses regular expressions to match file names, allowing for so
 > export default {{file_name_pascal_case}};
 > ```
 
-**.jest_test.template**
+**.templates/jest_test.template**
 
 > ```js
 > import {{file_name_pascal_case}} from './> {{file_name_snake_case}}';
