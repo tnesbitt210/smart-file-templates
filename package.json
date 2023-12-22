@@ -3,10 +3,11 @@
   "displayName": "Smart File Templates",
   "description": "Automate your file creation with custom templates matched by regex patterns. Define your templates, set regex rules, and accelerate your coding workflow with seamless, intelligent file templating.",
   "icon": "./icon.png",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "engines": {
     "vscode": "^1.85.0"
   },
+  "publisher": "TrevorNesbitt",
   "categories": [
     "Other"
   ],
