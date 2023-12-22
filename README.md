@@ -4,7 +4,7 @@
 
 Smart File Templates for VSCode is a powerful extension that boosts your coding efficiency by providing context-sensitive, customizable file templates. With automatic detection and suggestion of templates based on new file creation, it's an essential tool for any developer looking to streamline their workflow.
 
-![output](https://github.com/tnesbitt210/smart-file-templates/assets/10647853/3bc5f0ce-2677-4d98-90de-0a1133676589)
+![output-2](https://github.com/tnesbitt210/smart-file-templates/assets/10647853/0db44e8f-6431-413a-bfcb-582638d0cadd)
 
 ^ Code samples for this demo can be found below!
 
@@ -31,7 +31,7 @@ Download and install [Smart File Templates](https://marketplace.visualstudio.com
 
 - **Template JSON Structure:** Your template JSON should be formatted as follows:
 
-```json
+```
 {
   "file_pattern": {
     "label": "Template Label",
