@@ -51,7 +51,7 @@ The `file_pattern` uses regular expressions to match file names, allowing for so
 
 ## Demo
 
-![image](https://github.com/tnesbitt210/smart-file-templates/assets/10647853/abe5c638-146c-49df-96e2-35fb848a3d22)
+![output](https://github.com/tnesbitt210/smart-file-templates/assets/10647853/3bc5f0ce-2677-4d98-90de-0a1133676589)
 
 #### Code samples from this demo
 
