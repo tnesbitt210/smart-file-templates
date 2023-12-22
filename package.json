@@ -19,7 +19,7 @@
       "properties": {
         "smartTemplates.jsonConfigurationFile": {
           "type": "string",
-          "default": ".vscode/fileTemplates.json",
+          "default": ".fileTemplates.json",
           "description": "Path to JSON file where templates are configured"
         },
         "smartTemplates.customData": {

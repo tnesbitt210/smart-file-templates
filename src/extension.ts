@@ -65,15 +65,24 @@ async function getTemplates(
   newFileUri: vscode.Uri
 ): Promise<LabelStringPair[]> {
   const workspaceFolders = vscode.workspace.workspaceFolders;
+
   if (!workspaceFolders) {
     return []; // No workspace opened
   }
-  const templatesFilePath = path.join(
-    workspaceFolders[0].uri.fsPath,
-    vscode.workspace
-      .getConfiguration()
-      .get<string>("smartTemplates.jsonConfigurationFile") || ""
-  );
+
+  const configPath = vscode.workspace
+    .getConfiguration()
+    .get<string>("smartTemplates.jsonConfigurationFile");
+
+  if (!configPath) {
+    return []; // Configuration file path not set
+  }
+
+  // Determine if the path is absolute. If not, resolve it against the workspace folder
+  const templatesFilePath = path.isAbsolute(configPath)
+    ? configPath
+    : path.join(workspaceFolders[0].uri.fsPath, configPath);
+
   try {
     const templatesFileUri = Uri.file(templatesFilePath);
     const fileContent = await vscode.workspace.fs.readFile(templatesFileUri);
@@ -98,16 +107,21 @@ async function transformTemplatesConfig(
   newFileUri: vscode.Uri
 ): Promise<LabelStringPair[]> {
   let templates: LabelStringPair[] = [];
+
   for (const pattern in config) {
     if (!new RegExp(pattern).test(getRelativeFilePath(newFileUri))) {
       continue;
     }
+
     const details = config[pattern];
-    const templateFilePath = path.join(
-      workspaceFolder.uri.fsPath,
-      details.template_path
-    );
+
+    // Determine if the path is absolute. If not, resolve it against the workspace folder
+    const templateFilePath = path.isAbsolute(details.template_path)
+      ? details.template_path
+      : path.join(workspaceFolder.uri.fsPath, details.template_path);
+
     const templateFileUri = Uri.file(templateFilePath);
+
     try {
       const fileContent = await vscode.workspace.fs.readFile(templateFileUri);
       const templateContent = Buffer.from(fileContent).toString("utf-8");
@@ -130,8 +144,7 @@ async function transformTemplatesConfig(
 function getMustacheData(uri: vscode.Uri): Record<string, any> {
   return {
     file_path: getRelativeFilePath(uri),
-    date: new Date().toLocaleDateString(),
-    file_name_snake_case: toSnakeCase(uri),
+    date: new Date().toISOString().split("T")[0], // Format as YYYY-MM-DD    file_name_snake_case: toSnakeCase(uri),
     file_name_pascal_case: toPascalCase(uri),
     file_name_camel_case: toCamelCase(uri),
     ...vscode.workspace.getConfiguration().get("smartTemplates.customData", {}),

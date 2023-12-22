@@ -10,10 +10,9 @@ You can find the source code for SmartTemplates in the GitHub repository: [Smart
 
 ## Features
 
-- **Automatic Template Suggestions:** Get relevant templates suggested automatically when you create a new file.
 - **Customizable Templates:** Define and adapt your own templates to suit your unique coding style and project needs.
-- **Dynamic Content with Mustache:** Create dynamic template content with the Mustache templating syntax.
 - **Regex-based File Matching:** Employ regular expressions to match file names and types, offering even more precise template suggestions.
+- **Dynamic Content with Mustache:** Create dynamic template content with the Mustache templating syntax.
 - **Intuitive and Integrated:** Designed to blend into your VSCode environment for a seamless experience.
 
 ## Installation
@@ -24,7 +23,7 @@ Download and install SmartTemplates from the Visual Studio Code Marketplace to i
 
 ### Configuring Your Templates
 
-- **Template JSON File Location:** The `jsonConfigurationFile` setting in VSCode specifies the location of your template JSON file. By default, this is set to `.vscode/fileTemplates.json` in your workspace. You can modify this path in the VSCode settings.
+- **Template JSON File Location:** The `jsonConfigurationFile` setting in VSCode specifies the location of your template JSON file. By default, this is set to `.fileTemplates.json` in your workspace. You can modify this path in the VSCode settings.
 
 - **Template JSON Structure:** Your template JSON should be formatted as follows:
 
@@ -50,11 +49,68 @@ The `file_pattern` uses regular expressions to match file names, allowing for so
 - **Adding and Modifying Templates:** Tailor your templates according to your project's requirements, including templates for various file types and naming conventions.
 - **Leveraging Regex:** Make the most of regular expressions in `file_pattern` to match files more accurately and offer contextually relevant templates.
 
-## Demos
+## Demo
 
-- {{DEMO_VIDEO_BASIC_USAGE}}: A simple guide on creating a new file and applying a template.
-- {{DEMO_VIDEO_CUSTOM_TEMPLATES}}: Instructions on adding and customizing your templates.
-- {{DEMO_VIDEO_DYNAMIC_CONTENT}}: Using Mustache syntax for dynamic content in templates.
+[![Demo Video](http://img.youtube.com/vi/5GCPQB4nuis/0.jpg)](https://www.youtube.com/watch?v=5GCPQB4nuis)
+
+#### Code samples from this demo
+
+**.fileTemplates.json**
+
+```json
+{
+  ".*\\.tsx": {
+    "label": "React Component",
+    "template_path": ".templates/react_component.template"
+  },
+  ".*\\.test\\.ts": {
+    "label": "Jest Test",
+    "template_path": ".templates/jest_test.template"
+  }
+}
+```
+
+**.react_component.template**
+
+```js
+import React from 'react';
+
+interface {{file_name_pascal_case}}Props {
+    // Define your component props here
+}
+
+const {{file_name_pascal_case}}: React.FC<{{file_name_pascal_case}}Props> = (props) => {
+    return (
+        <div>
+
+        </div>
+    );
+};
+
+export default {{file_name_pascal_case}};
+```
+
+**.jest_test.template**
+
+```js
+import {{file_name_pascal_case}} from './{{file_name_snake_case}}';
+
+describe('Test {{file_name_pascal_case}}', () => {
+
+    beforeAll(() => {
+        // This code runs a single time, before all the tests.
+    });
+
+    beforeEach(() => {
+        // This code runs before each test in this describe block
+    });
+
+    it('should do something', () => {
+        expect(true).toBe(true); // Replace with your actual test
+    });
+
+});
+```
 
 ## Support and Contributions
 
