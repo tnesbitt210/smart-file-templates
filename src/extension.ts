@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import * as path from "path";
 import { Uri, WorkspaceFolder } from "vscode";
 import * as Mustache from "mustache";
+import * as os from "os";
 
 let newFileToHasOpened = new Map();
 
@@ -79,9 +80,13 @@ async function getTemplates(
   }
 
   // Determine if the path is absolute. If not, resolve it against the workspace folder
-  const templatesFilePath = path.isAbsolute(configPath)
-    ? configPath
-    : path.join(workspaceFolders[0].uri.fsPath, configPath);
+  let templatesFilePath = resolvePath(configPath);
+  if (!path.isAbsolute(templatesFilePath)) {
+    templatesFilePath = path.join(
+      workspaceFolders[0].uri.fsPath,
+      templatesFilePath
+    );
+  }
 
   try {
     const templatesFileUri = Uri.file(templatesFilePath);
@@ -116,9 +121,13 @@ async function transformTemplatesConfig(
     const details = config[pattern];
 
     // Determine if the path is absolute. If not, resolve it against the workspace folder
-    const templateFilePath = path.isAbsolute(details.template_path)
-      ? details.template_path
-      : path.join(workspaceFolder.uri.fsPath, details.template_path);
+    let templateFilePath = resolvePath(details.template_path);
+    if (!path.isAbsolute(templateFilePath)) {
+      templateFilePath = path.join(
+        workspaceFolder.uri.fsPath,
+        templateFilePath
+      );
+    }
 
     const templateFileUri = Uri.file(templateFilePath);
 
@@ -147,6 +156,7 @@ function getMustacheData(uri: vscode.Uri): Record<string, any> {
     date: new Date().toISOString().split("T")[0], // Format as YYYY-MM-DD    file_name_snake_case: toSnakeCase(uri),
     file_name_pascal_case: toPascalCase(uri),
     file_name_camel_case: toCamelCase(uri),
+    file_name_snake_case: toSnakeCase(uri),
     ...vscode.workspace.getConfiguration().get("smartTemplates.customData", {}),
   };
 }
@@ -205,6 +215,13 @@ function getRelativeFilePath(uri: vscode.Uri): string {
     return path.relative(repoRoot, filePath);
   }
   return "";
+}
+
+function resolvePath(pathToResolve: string): string {
+  if (pathToResolve.startsWith("~")) {
+    return path.join(os.homedir(), pathToResolve.slice(1));
+  }
+  return pathToResolve;
 }
 
 export function deactivate() {}
