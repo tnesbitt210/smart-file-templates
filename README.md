@@ -44,13 +44,13 @@ Download and install [Smart File Templates](https://marketplace.visualstudio.com
 - **Leveraging Regex:** Make the most of regular expressions in `file_pattern_regex` to match files more accurately and offer contextually relevant templates.
 - **Dynamic Template Variables:** Smart File Templates for VSCode utilizes Mustache templating to provide dynamic content in your file templates. This feature allows you to insert context-specific data into your templates automatically. Below are the available Mustache variables:
 
-| Variable                    | Description                                                                                 | Example Usage                         |
-| --------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------- |
-| `{{file_path}}`             | Inserts the relative path of the file from the root of your workspace.                      | N/A                                   |
-| `{{date}}`                  | Adds the current date in a localized date string format.                                    | N/A                                   |
-| `{{file_name_snake_case}}`  | Provides the file name in snake_case format.                                                | `my_new_file.tsx` for `MyNewFile.tsx` |
-| `{{file_name_pascal_case}}` | Converts the file name to PascalCase format, useful for classes and components.             | `MyNewFile` for `my-new-file.tsx`     |
-| `{{file_name_camel_case}}`  | Transforms the file name into camelCase format, typically used for variables and functions. | `myNewFile` for `my-new-file.tsx`     |
+| Variable                    | Description                                                                                 | Example Usage                               |
+| --------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| `{{file_path}}`             | Inserts the relative path of the file from the root of your workspace.                      | N/A                                         |
+| `{{date}}`                  | Adds the current date in a localized date string format.                                    | 2023-12-21                                  |
+| `{{file_name_snake_case}}`  | Provides the file name in snake_case format.                                                | `my_new_file` for `path/to/my_new_file.tsx` |
+| `{{file_name_pascal_case}}` | Converts the file name to PascalCase format, useful for classes and components.             | `MyNewFile` for `path/to/my_new_file.tsx`   |
+| `{{file_name_camel_case}}`  | Transforms the file name into camelCase format, typically used for variables and functions. | `myNewFile` for `path/to/my_new_file.tsx`   |
 
 Additionally, you can extend the templating capabilities by adding custom variables in the VSCode settings under `smartTemplates.customData`. This feature allows you to tailor the templating system to your specific project needs and workflows, enhancing the flexibility and power of Smart File Templates.
 
