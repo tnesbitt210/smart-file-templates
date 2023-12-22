@@ -1,23 +1,27 @@
-# SmartTemplates for VSCode
+# Smart File Templates for VSCode
 
 ## Overview
 
-SmartTemplates for VSCode is a powerful extension that boosts your coding efficiency by providing context-sensitive, customizable file templates. With automatic detection and suggestion of templates based on new file creation, it's an essential tool for any developer looking to streamline their workflow.
+Smart File Templates for VSCode is a powerful extension that boosts your coding efficiency by providing context-sensitive, customizable file templates. With automatic detection and suggestion of templates based on new file creation, it's an essential tool for any developer looking to streamline their workflow.
+
+![output](https://github.com/tnesbitt210/smart-file-templates/assets/10647853/3bc5f0ce-2677-4d98-90de-0a1133676589)
+
+^ Code samples for this demo can be found below!
 
 ## Repository
 
-You can find the source code for SmartTemplates in the GitHub repository: [SmartTemplates on GitHub](https://github.com/tnesbitt210/smart-file-templates).
+You can find the source code for Smart File Templates in the GitHub repository: [Smart File Templates on GitHub](https://github.com/tnesbitt210/smart-file-templates).
 
 ## Features
 
 - **Customizable Templates:** Define and adapt your own templates to suit your unique coding style and project needs.
 - **Regex-based File Matching:** Employ regular expressions to match file names and types, offering even more precise template suggestions.
-- **Dynamic Content with Mustache:** Create dynamic template content with the Mustache templating syntax.
+- **Dynamic Content with Mustache:** Create dynamic template content with the Mustache templating syntax (see below code samples).
 - **Intuitive and Integrated:** Designed to blend into your VSCode environment for a seamless experience.
 
 ## Installation
 
-Download and install SmartTemplates from the Visual Studio Code Marketplace to integrate it into your VSCode setup.
+Download and install [Smart File Templates](https://marketplace.visualstudio.com/items?itemName=TrevorNesbitt.smart-file-templates) from the Visual Studio Code Marketplace to integrate it into your VSCode setup.
 
 ## Usage
 
@@ -27,7 +31,7 @@ Download and install SmartTemplates from the Visual Studio Code Marketplace to i
 
 - **Template JSON Structure:** Your template JSON should be formatted as follows:
 
-```
+```json
 {
   "file_pattern": {
     "label": "Template Label",
@@ -42,80 +46,76 @@ The `file_pattern` uses regular expressions to match file names, allowing for so
 ### Using the Extension
 
 - **Selecting a Template:** Upon creating a new file, if applicable, a Quick Pick dialog will appear, letting you choose a suitable template. The chosen template will populate the new file.
-- **Dynamic Template Variables:** Utilize variables like `file_path`, `date`, `file_name_snake_case`, `file_name_pascal_case`, and `file_name_camel_case` in your templates. Add custom variables in `smartTemplates.customData` in the VSCode settings.
+- **Dynamic Template Variables:** Utilize variables like `file_path`, `date`, `file_name_snake_case`, `file_name_pascal_case`, and `file_name_camel_case` in your templates. Add custom variables in `Smart File Templates.customData` in the VSCode settings.
 
 ### Customizing Templates
 
 - **Adding and Modifying Templates:** Tailor your templates according to your project's requirements, including templates for various file types and naming conventions.
 - **Leveraging Regex:** Make the most of regular expressions in `file_pattern` to match files more accurately and offer contextually relevant templates.
 
-## Demo
-
-![output](https://github.com/tnesbitt210/smart-file-templates/assets/10647853/3bc5f0ce-2677-4d98-90de-0a1133676589)
-
-#### Code samples from this demo
+## Code samples from above demo
 
 **.fileTemplates.json**
 
-```json
-{
-  ".*\\.tsx": {
-    "label": "React Component",
-    "template_path": ".templates/react_component.template"
-  },
-  ".*\\.test\\.ts": {
-    "label": "Jest Test",
-    "template_path": ".templates/jest_test.template"
-  }
-}
-```
+> ```json
+> {
+>   ".*\\.tsx": {
+>     "label": "React Component",
+>     "template_path": ".templates/react_component.template"
+>   },
+>   ".*\\.test\\.ts": {
+>     "label": "Jest Test",
+>     "template_path": ".templates/jest_test.template"
+>   }
+> }
+> ```
 
 **.react_component.template**
 
-```js
-import React from 'react';
-
-interface {{file_name_pascal_case}}Props {
-    // Define your component props here
-}
-
-const {{file_name_pascal_case}}: React.FC<{{file_name_pascal_case}}Props> = (props) => {
-    return (
-        <div>
-
-        </div>
-    );
-};
-
-export default {{file_name_pascal_case}};
-```
+> ```js
+> import React from 'react';
+>
+> interface {{file_name_pascal_case}}Props {
+>     // Define your component props here
+> }
+>
+> const {{file_name_pascal_case}}: React.FC<{{file_name_pascal_case}}Props> = (props) => {
+>     return (
+>         <div>
+>
+>         </div>
+>     );
+> };
+>
+> export default {{file_name_pascal_case}};
+> ```
 
 **.jest_test.template**
 
-```js
-import {{file_name_pascal_case}} from './{{file_name_snake_case}}';
-
-describe('Test {{file_name_pascal_case}}', () => {
-
-    beforeAll(() => {
-        // This code runs a single time, before all the tests.
-    });
-
-    beforeEach(() => {
-        // This code runs before each test in this describe block
-    });
-
-    it('should do something', () => {
-        expect(true).toBe(true); // Replace with your actual test
-    });
-
-});
-```
+> ```js
+> import {{file_name_pascal_case}} from './> {{file_name_snake_case}}';
+>
+> describe('Test {{file_name_pascal_case}}', () => {
+>
+>     beforeAll(() => {
+>         // This code runs a single time, before all the tests.
+>     });
+>
+>     beforeEach(() => {
+>         // This code runs before each test in this describe block
+>     });
+>
+>     it('should do something', () => {
+>         expect(true).toBe(true); // Replace with your actual test
+>     });
+>
+> });
+> ```
 
 ## Support and Contributions
 
-For support or to contribute to SmartTemplates, please visit our [GitHub repository](https://github.com/tnesbitt210/smart-file-templates).
+For support or to contribute to Smart File Templates, please visit our [GitHub repository](https://github.com/tnesbitt210/smart-file-templates).
 
 ## License
 
-SmartTemplates is available under the MIT License. Refer to the LICENSE file for detailed information.
+Smart File Templates is available under the MIT License. Refer to the LICENSE file for detailed information.
