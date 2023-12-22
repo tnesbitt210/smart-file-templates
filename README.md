@@ -29,12 +29,15 @@ Download and install [Smart File Templates](https://marketplace.visualstudio.com
     > }
     > ```
 
-    !!!NOTE: You can use a file other than `.fileTemplates.json` by editing the `smartTemplates.jsonConfigurationFile` setting in VSCode.
-    !!!NOTE: All paths are relative to the workspace root.
+    <br>
+
+    > **NOTE:** You can use a file other than `.fileTemplates.json` by editing the `smartTemplates.jsonConfigurationFile` setting in VSCode.
+
+    > **NOTE:** All paths are relative to the workspace root.
 
     <br>
 
-2) **Create your template files**: Create the template files corresponding to each `template_path` listed above. You may use {{mustache_syntax}} to insert variables into your templates. An exhaustive list of the available variables can be found in the Available Variables section below.<br>
+2) **Create your template files**: Create the template files corresponding to each `template_path` listed above. You may use {{mustache_syntax}} to insert variables into your templates. An exhaustive list of the available variables can be found in the [Available Variables](#available-variables) section below.<br>
    The folowing templates were used to create the above demo:
    <br>
 
@@ -90,7 +93,7 @@ Download and install [Smart File Templates](https://marketplace.visualstudio.com
 | `{{file_name_pascal_case}}` | Converts the file name to PascalCase format, useful for classes and components.             | `MyNewFile` for `path/to/my_new_file.tsx`   |
 | `{{file_name_camel_case}}`  | Transforms the file name into camelCase format, typically used for variables and functions. | `myNewFile` for `path/to/my_new_file.tsx`   |
 
-!!!NOTE: You can add additional variables via the VSCode setting `smartTemplates.customData`.
+> **NOTE:** You can add additional variables via the VSCode setting `smartTemplates.customData`.
 
 ## Support and Contributions
 
