@@ -2,47 +2,85 @@
 
 ## Overview
 
-Smart File Templates for VSCode is a powerful extension that boosts your coding efficiency by providing context-sensitive, customizable file templates. With automatic detection and suggestion of templates based on new file creation, it's an essential tool for any developer looking to streamline their workflow.
+Smart File Templates for VSCode is an extension that helps you work faster by letting you create your own file templates. You decide the rules (using regex patterns) for when each template should be suggested. So, when you make a new file, the extension suggests the right template based on your rules. Plus, you can use dynamic variables within these templates for even more power and flexibility.
 
 ![output3](https://github.com/tnesbitt210/smart-file-templates/assets/10647853/cc088a72-fd88-486c-b088-a146967790f2)
 
-^ Code samples for this demo can be found below!
-
-## Repository
-
 You can find the source code for Smart File Templates in the GitHub repository: [Smart File Templates on GitHub](https://github.com/tnesbitt210/smart-file-templates).
 
-## Features
-
-- **Customizable Templates:** Define and adapt your own templates to suit your unique coding style and project needs.
-- **Regex-based File Matching:** Employ regular expressions to match file names and types, offering even more precise template suggestions.
-- **Dynamic Content with Mustache:** Create dynamic template content with the Mustache templating syntax (see below code samples).
-- **Intuitive and Integrated:** Designed to blend into your VSCode environment for a seamless experience.
-
-## Installation
+## Getting started
 
 Download and install [Smart File Templates](https://marketplace.visualstudio.com/items?itemName=TrevorNesbitt.smart-file-templates) from the Visual Studio Code Marketplace to integrate it into your VSCode setup.
+<br>
 
-## Usage
+1.  **Create .fileTemplates.json**: This is the file that is used to match new files to template suggestions via regex patterns. Each key should be a regex pattern, and each value should be a `{"label": string, "template_path": string}`<br>
+    The following `.fileTemplates.json` was used to create the above demo:
 
-### Configuring Your Templates
+    > ```json
+    > {
+    >   ".*\\.tsx": {
+    >     "label": "React Component",
+    >     "template_path": ".templates/react_component.template"
+    >   },
+    >   ".*\\.test\\.ts": {
+    >     "label": "Jest Test",
+    >     "template_path": ".templates/jest_test.template"
+    >   }
+    > }
+    > ```
 
-- **Template JSON File Location:** The `jsonConfigurationFile` setting in VSCode specifies the location of your template JSON file. By default, this is set to `.fileTemplates.json` in your workspace. You can modify this path in the VSCode settings.
+    !!!NOTE: You can use a file other than `.fileTemplates.json` by editing the `smartTemplates.jsonConfigurationFile` setting in VSCode.
+    !!!NOTE: All paths are relative to the workspace root.
 
-- **Template JSON Structure:** Your template JSON should be formatted as follows:
+    <br>
 
-> ```
-> {
->  "file_pattern_regex": {
->    "label": "Template Label",
->    "template_path": "path/to/template"
->  }
->  // Additional templates can be added here
-> }
-> ```
+2) **Create your template files**: Create the template files corresponding to each `template_path` listed above. You may use {{mustache_syntax}} to insert variables into your templates. An exhaustive list of the available variables can be found in the Available Variables section below.<br>
+   The folowing templates were used to create the above demo:
+   <br>
 
-- **Leveraging Regex:** Make the most of regular expressions in `file_pattern_regex` to match files more accurately and offer contextually relevant templates.
-- **Dynamic Template Variables:** Smart File Templates for VSCode utilizes Mustache templating to provide dynamic content in your file templates. This feature allows you to insert context-specific data into your templates automatically. Below are the available Mustache variables:
+   _.templates/react_component.template_
+
+   > ```js
+   > import React from 'react';
+   >
+   > interface {{file_name_pascal_case}}Props {
+   >    // Define your component props here
+   > }
+   >
+   > const {{file_name_pascal_case}}: React.FC<{{file_name_pascal_case}}Props> = (props) => {
+   >    return (
+   >        <div>
+   >
+   >        </div>
+   >    );
+   > };
+   >
+   > export default {{file_name_pascal_case}};
+   > ```
+
+   _.templates/jest_test.template_
+
+   > ```js
+   > import {{file_name_pascal_case}} from './> {{file_name_snake_case}}';
+   >
+   > describe('Test {{file_name_pascal_case}}', () => {
+   >
+   >    beforeAll(() => {
+   >        // This code runs a single time, before all the tests.
+   >    });
+   >
+   >    beforeEach(() => {
+   >        // This code runs before each test in this describe block
+   >    });
+   >
+   >    it('should do something', () => {
+   >        expect(true).toBe(true); // Replace with your actual test
+   >    });
+   >
+   > });
+   > ```
+
+## Available variables
 
 | Variable                    | Description                                                                                 | Example Usage                               |
 | --------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------- |
@@ -52,66 +90,7 @@ Download and install [Smart File Templates](https://marketplace.visualstudio.com
 | `{{file_name_pascal_case}}` | Converts the file name to PascalCase format, useful for classes and components.             | `MyNewFile` for `path/to/my_new_file.tsx`   |
 | `{{file_name_camel_case}}`  | Transforms the file name into camelCase format, typically used for variables and functions. | `myNewFile` for `path/to/my_new_file.tsx`   |
 
-Additionally, you can extend the templating capabilities by adding custom variables in the VSCode settings under `smartTemplates.customData`. This feature allows you to tailor the templating system to your specific project needs and workflows, enhancing the flexibility and power of Smart File Templates.
-
-## Code samples from above demo
-
-**.fileTemplates.json**
-
-> ```json
-> {
->   ".*\\.tsx": {
->     "label": "React Component",
->     "template_path": ".templates/react_component.template"
->   },
->   ".*\\.test\\.ts": {
->     "label": "Jest Test",
->     "template_path": ".templates/jest_test.template"
->   }
-> }
-> ```
-
-**.templates/react_component.template**
-
-> ```js
-> import React from 'react';
->
-> interface {{file_name_pascal_case}}Props {
->    // Define your component props here
-> }
->
-> const {{file_name_pascal_case}}: React.FC<{{file_name_pascal_case}}Props> = (props) => {
->    return (
->        <div>
->
->        </div>
->    );
-> };
->
-> export default {{file_name_pascal_case}};
-> ```
-
-**.templates/jest_test.template**
-
-> ```js
-> import {{file_name_pascal_case}} from './> {{file_name_snake_case}}';
->
-> describe('Test {{file_name_pascal_case}}', () => {
->
->    beforeAll(() => {
->        // This code runs a single time, before all the tests.
->    });
->
->    beforeEach(() => {
->        // This code runs before each test in this describe block
->    });
->
->    it('should do something', () => {
->        expect(true).toBe(true); // Replace with your actual test
->    });
->
-> });
-> ```
+!!!NOTE: You can add additional variables via the VSCode setting `smartTemplates.customData`.
 
 ## Support and Contributions
 
