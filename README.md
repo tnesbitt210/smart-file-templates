@@ -31,15 +31,15 @@ Download and install [Smart File Templates](https://marketplace.visualstudio.com
 
 - **Template JSON Structure:** Your template JSON should be formatted as follows:
 
-```
-{
-  "file_pattern": {
-    "label": "Template Label",
-    "template_path": "path/to/template"
-  }
-  // Additional templates can be added here
-}
-```
+> ```
+> {
+>   "file_pattern": {
+>     "label": "Template Label",
+>     "template_path": "path/to/template"
+>   }
+>   // Additional templates can be added here
+> }
+> ```
 
 The `file_pattern` uses regular expressions to match file names, allowing for sophisticated and precise template suggestions.
 
