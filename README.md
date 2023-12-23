@@ -10,57 +10,67 @@ Below, you will find the templates & regex rules used to make this demo.
 
 ## Getting started
 
-1. Install [Smart File Templates](https://marketplace.visualstudio.com/items?itemName=TrevorNesbitt.smart-file-templates) from the Visual Studio Code Marketplace to integrate it into your VSCode setup.
-   <br>
+1.  Install [Smart File Templates](https://marketplace.visualstudio.com/items?itemName=TrevorNesbitt.smart-file-templates) from the Visual Studio Code Marketplace to integrate it into your VSCode setup.
+    <br>
 
-2. **Create .fileTemplates.json**: This is the file that is used to match new files to template suggestions via regex patterns. Each key should be a regex pattern, and each value should be a `{"label": string, "template_path": string`
-   <br>
-   The following JSON was used in the above demo:
+2.  **Create .fileTemplates.json**: This is the file that is used to match new files to template suggestions via regex patterns. Each key should be a regex pattern, and each value should be a `{"label": string, "template_path": string`
 
-   > ```
-   > // .fileTemplates.json
-   > {
-   >   ".*\\.tsx": {
-   >     "label": "React Component",
-   >     "template_path": ".templates/react_component.template"
-   >   },
-   >   ".*\\.test\\.ts": {
-   >     "label": "Jest Test",
-   >     "template_path": ".templates/jest_test.template"
-   >   }
-   > }
-   > ```
+    <br>
+    The following JSON was used in the above demo:
 
-   <br>
+    > ```
+    > // .fileTemplates.json
+    >
+    > {
+    >   ".*\\.tsx": {
+    >     "label": "React Component",
+    >     "template_path": ".templates/react_component.template"
+    >   },
+    >   ".*\\.test\\.ts": {
+    >     "label": "Jest Test",
+    >     "template_path": ".templates/jest_test.template"
+    >   }
+    > }
+    > ```
 
-   > **NOTE:** You can use a file other than `.fileTemplates.json` by editing the `smartTemplates.jsonConfigurationFile` setting in VSCode.
+    <br>
 
-   > **NOTE:** All paths are relative to the workspace root.
+    > **NOTE:** You can use a file other than `.fileTemplates.json` by editing the `smartTemplates.jsonConfigurationFile` setting in VSCode.
 
-   <br>
+    > **NOTE:** All paths are relative to the workspace root.
 
-3. **Create your template files**: Create the template files corresponding to each `template_path` listed above. You may use {{mustache_syntax}} to insert variables into your templates. An exhaustive list of the available variables can be found in the [Available Variables](#available-variables) section below.
-   <br>
-   The folowing template was used in the above demo:
+    <br>
 
-   > ```js
-   > // .templates/react_component.template
-   > import React from 'react';
-   >
-   > interface {{file_name_pascal_case}}Props {
-   >    // Define your component props here
-   > }
-   >
-   > const {{file_name_pascal_case}}: React.FC<{{file_name_pascal_case}}Props> = (props) => {
-   >    return (
-   >        <div>
-   >
-   >        </div>
-   >    );
-   > };
-   >
-   > export default {{file_name_pascal_case}};
-   > ```
+3.  **Create your template files**: Create the template files corresponding to each `template_path` listed above. You may use {{mustache_syntax}} to insert variables into your templates. An exhaustive list of the available variables can be found in the [Available Variables](#available-variables) section below.
+
+    <br>
+    The folowing template was used in the above demo:
+
+    > ```js
+    > // .templates/react_component.template
+    > ```
+    >
+    > import React from 'react';
+    >
+    > interface {{file_name_pascal_case}}Props {
+    > // Define your component props here
+    > }
+    >
+    > const {{file_name_pascal_case}}: React.FC<{{file_name_pascal_case}}Props> = (props) => {
+    > return (
+    >
+    > <div>
+    >
+    >        </div>
+    >
+    > );
+    > };
+    >
+    > export default {{file_name_pascal_case}};
+    >
+    > ```
+    >
+    > ```
 
 ## Available variables
 
