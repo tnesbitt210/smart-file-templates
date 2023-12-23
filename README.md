@@ -2,45 +2,45 @@
 
 ## Overview
 
-Smart File Templates for VSCode is an extension that helps you work faster by letting you create your own file templates. You decide the rules (using regex patterns) for when each template should be suggested. So, when you make a new file, the extension suggests the right template based on your rules. Plus, you can use dynamic variables within these templates for even more power and flexibility.
+Smart File Templates for VSCode is an extension that helps you work faster by letting you create your own file templates.You decide the rules (using regex patterns) for when each template should be suggested. So, when you make a new file, the extension suggests the right template based on your rules. Plus, you can use dynamic variables within these templates for even more power and flexibility.
 
 ![output-7](https://github.com/tnesbitt210/smart-file-templates/assets/10647853/4912072f-82e8-4449-b8de-0cf605aa6a33)
 
-You can find the source code for Smart File Templates in the GitHub repository: [Smart File Templates on GitHub](https://github.com/tnesbitt210/smart-file-templates).
+Below, you will find the templates & regex rules used to make this demo.
 
 ## Getting started
 
-Download and install [Smart File Templates](https://marketplace.visualstudio.com/items?itemName=TrevorNesbitt.smart-file-templates) from the Visual Studio Code Marketplace to integrate it into your VSCode setup.
-<br>
+1. Install [Smart File Templates](https://marketplace.visualstudio.com/items?itemName=TrevorNesbitt.smart-file-templates) from the Visual Studio Code Marketplace to integrate it into your VSCode setup.
+   <br>
 
-1.  **Create .fileTemplates.json**: This is the file that is used to match new files to template suggestions via regex patterns. Each key should be a regex pattern, and each value should be a `{"label": string, "template_path": string}`
-    The following JSON was used in the above demo:
-    <br>
+2. **Create .fileTemplates.json**: This is the file that is used to match new files to template suggestions via regex patterns. Each key should be a regex pattern, and each value should be a `{"label": string, "template_path": string}`<br>
+   The following JSON was used in the above demo:
+   <br>
 
-    _.fileTemplates.json_
+   _.fileTemplates.json_
 
-    > ```json
-    > {
-    >   ".*\\.tsx": {
-    >     "label": "React Component",
-    >     "template_path": ".templates/react_component.template"
-    >   },
-    >   ".*\\.test\\.ts": {
-    >     "label": "Jest Test",
-    >     "template_path": ".templates/jest_test.template"
-    >   }
-    > }
-    > ```
+   > ```json
+   > {
+   >   ".*\\.tsx": {
+   >     "label": "React Component",
+   >     "template_path": ".templates/react_component.template"
+   >   },
+   >   ".*\\.test\\.ts": {
+   >     "label": "Jest Test",
+   >     "template_path": ".templates/jest_test.template"
+   >   }
+   > }
+   > ```
 
-    <br>
+   <br>
 
-    > **NOTE:** You can use a file other than `.fileTemplates.json` by editing the `smartTemplates.jsonConfigurationFile` setting in VSCode.
+   > **NOTE:** You can use a file other than `.fileTemplates.json` by editing the `smartTemplates.jsonConfigurationFile` setting in VSCode.
 
-    > **NOTE:** All paths are relative to the workspace root.
+   > **NOTE:** All paths are relative to the workspace root.
 
-    <br>
+   <br>
 
-2) **Create your template files**: Create the template files corresponding to each `template_path` listed above. You may use {{mustache_syntax}} to insert variables into your templates. An exhaustive list of the available variables can be found in the [Available Variables](#available-variables) section below.
+3. **Create your template files**: Create the template files corresponding to each `template_path` listed above. You may use {{mustache_syntax}} to insert variables into your templates. An exhaustive list of the available variables can be found in the [Available Variables](#available-variables) section below.<br>
    The folowing template was the first one used in the above demo:
    <br>
 
