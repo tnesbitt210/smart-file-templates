@@ -13,10 +13,9 @@ Below, you will find the templates & regex rules used to make this demo.
 1. Install [Smart File Templates](https://marketplace.visualstudio.com/items?itemName=TrevorNesbitt.smart-file-templates) from the Visual Studio Code Marketplace to integrate it into your VSCode setup.
    <br>
 
-2. **Create .fileTemplates.json**: This is the file that is used to match new files to template suggestions via regex patterns. Each key should be a regex pattern, and each value should be a `{"label": string, "template_path": string}`<br>
-   The following JSON was used in the above demo:
+2. **Create .fileTemplates.json**: This is the file that is used to match new files to template suggestions via regex patterns. Each key should be a regex pattern, and each value should be a `{"label": string, "template_path": string`
    <br>
-
+   The following JSON was used in the above demo:
    _.fileTemplates.json_
 
    > ```json
@@ -40,10 +39,9 @@ Below, you will find the templates & regex rules used to make this demo.
 
    <br>
 
-3. **Create your template files**: Create the template files corresponding to each `template_path` listed above. You may use {{mustache_syntax}} to insert variables into your templates. An exhaustive list of the available variables can be found in the [Available Variables](#available-variables) section below.<br>
-   The folowing template was the first one used in the above demo:
+3. **Create your template files**: Create the template files corresponding to each `template_path` listed above. You may use {{mustache_syntax}} to insert variables into your templates. An exhaustive list of the available variables can be found in the [Available Variables](#available-variables) section below.
    <br>
-
+   The folowing template was used in the above demo:
    _.templates/react_component.template_
 
    > ```js
