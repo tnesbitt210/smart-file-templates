@@ -18,9 +18,11 @@ Below, you will find the templates & regex rules used to make this demo.
     <br>
     The following JSON was used in the above demo:
 
-    > ```
+    > ```js
     > // .fileTemplates.json
+    > ```
     >
+    > ```json
     > {
     >   ".*\\.tsx": {
     >     "label": "React Component",
@@ -50,6 +52,8 @@ Below, you will find the templates & regex rules used to make this demo.
     > // .templates/react_component.template
     > ```
     >
+    > ```js
+    >
     > import React from 'react';
     >
     > interface {{file_name_pascal_case}}Props {
@@ -67,6 +71,8 @@ Below, you will find the templates & regex rules used to make this demo.
     > };
     >
     > export default {{file_name_pascal_case}};
+    >
+    > ```
     >
     > ```
     >
