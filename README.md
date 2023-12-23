@@ -15,9 +15,10 @@ Below, you will find the templates & regex rules used to make this demo.
 
 2. **Create .fileTemplates.json**: This is the file that is used to match new files to template suggestions via regex patterns. Each key should be a regex pattern, and each value should be a `{"label": string, "template_path": string`
    <br>
-   The following JSON was used in the above demo:<br>`.fileTemplates.json`
+   The following JSON was used in the above demo:
 
-   > ```json
+   > ```
+   > // .fileTemplates.json
    > {
    >   ".*\\.tsx": {
    >     "label": "React Component",
@@ -40,9 +41,10 @@ Below, you will find the templates & regex rules used to make this demo.
 
 3. **Create your template files**: Create the template files corresponding to each `template_path` listed above. You may use {{mustache_syntax}} to insert variables into your templates. An exhaustive list of the available variables can be found in the [Available Variables](#available-variables) section below.
    <br>
-   The folowing template was used in the above demo:<br>`.templates/react_component.template`
+   The folowing template was used in the above demo:
 
    > ```js
+   > // .templates/react_component.template
    > import React from 'react';
    >
    > interface {{file_name_pascal_case}}Props {
