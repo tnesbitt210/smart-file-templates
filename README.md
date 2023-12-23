@@ -50,32 +50,22 @@ Below, you will find the templates & regex rules used to make this demo.
 
     > ```js
     > // .templates/react_component.template
-    > ```
-    >
-    > ```js
     >
     > import React from 'react';
     >
     > interface {{file_name_pascal_case}}Props {
-    > // Define your component props here
+    >    // Define your component props here
     > }
     >
     > const {{file_name_pascal_case}}: React.FC<{{file_name_pascal_case}}Props> = (props) => {
-    > return (
-    >
-    > <div>
+    >    return (
+    >        <div>
     >
     >        </div>
-    >
-    > );
+    >    );
     > };
     >
     > export default {{file_name_pascal_case}};
-    >
-    > ```
-    >
-    > ```
-    >
     > ```
 
 ## Available variables
