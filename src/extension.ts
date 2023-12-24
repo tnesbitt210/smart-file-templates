@@ -152,59 +152,137 @@ async function transformTemplatesConfig(
 
 function getMustacheData(uri: vscode.Uri): Record<string, any> {
   return {
+    oncall: getVariable("oncall"),
+    owner: getVariable("owner"),
+    maintainers: getVariable("maintainers"),
+    author: getVariable("author"),
     file_path: getRelativeFilePath(uri),
+    file_directory: getRelativeCurrentDirectory(uri),
+    parent_directory: getRelativeParentDirectory(uri),
     date: new Date().toISOString().split("T")[0], // Format as YYYY-MM-DD
     file_name_pascal_case: toPascalCase(uri),
     file_name_camel_case: toCamelCase(uri),
     file_name_snake_case: toSnakeCase(uri),
+    file_name_kebab_case: toKebabCase(uri),
+    file_name_constant_case: toConstantCase(uri),
+    file_name_dot_case: toDotCase(uri),
+    file_name_path_case: toPathCase(uri),
+    file_name_sentence_case: toSentenceCase(uri),
+    file_name_lower_case: toLowerCase(uri),
+    file_name_title_case: toTitleCase(uri),
     ...vscode.workspace.getConfiguration().get("smartTemplates.customData", {}),
   };
 }
 
 function toPascalCase(uri: vscode.Uri): string {
-  const fileName = uri.path.split("/").pop(); // Get the file name with extension
-  if (!fileName) {
-    return "";
-  }
-
-  const withoutExtension = fileName.split(".")[0]; // Remove the extension
-  // Convert snake_case or kebab-case to UpperCamelCase, including numbers
-  let pascalCase = withoutExtension.replace(/([-_]\w)/g, ($1) => {
-    return $1.toUpperCase().replace("-", "").replace("_", "");
-  });
-
-  return pascalCase.charAt(0).toUpperCase() + pascalCase.slice(1);
-}
-
-function toCamelCase(uri: vscode.Uri): string {
-  const fileName = uri.path.split("/").pop(); // Get the file name with extension
-  if (!fileName) {
-    return "";
-  }
-
-  const withoutExtension = fileName.split(".")[0]; // Remove the extension
-  // Convert snake_case or kebab-case to camelCase, including numbers
-  let camelCase = withoutExtension.replace(/([-_]\w)/g, ($1) => {
-    return $1.toUpperCase().replace("-", "").replace("_", "");
-  });
-
-  return camelCase.charAt(0).toLowerCase() + camelCase.slice(1);
+  const camelCaseStr = toCamelCase(uri);
+  return camelCaseStr.charAt(0).toUpperCase() + camelCaseStr.slice(1);
 }
 
 function toSnakeCase(uri: vscode.Uri): string {
-  const fileName = uri.path.split("/").pop(); // Get the file name with extension
+  const camelCaseStr = toCamelCase(uri);
+  const snakeCase = camelCaseStr.replace(
+    /[A-Z]/g,
+    (letter) => `_${letter.toLowerCase()}`
+  );
+  return snakeCase.startsWith("_") ? snakeCase.slice(1) : snakeCase;
+}
+
+function toKebabCase(uri: vscode.Uri): string {
+  const camelCaseStr = toCamelCase(uri);
+  return convertCamelToSeparator(camelCaseStr, "-");
+}
+
+function toConstantCase(uri: vscode.Uri): string {
+  const camelCaseStr = toCamelCase(uri);
+  return convertCamelToSeparator(camelCaseStr, "_").toUpperCase();
+}
+
+function toDotCase(uri: vscode.Uri): string {
+  const camelCaseStr = toCamelCase(uri);
+  return convertCamelToSeparator(camelCaseStr, ".");
+}
+
+function toPathCase(uri: vscode.Uri): string {
+  const camelCaseStr = toCamelCase(uri);
+  return convertCamelToSeparator(camelCaseStr, "/");
+}
+
+function toLowerCase(uri: vscode.Uri): string {
+  const camelCaseStr = toCamelCase(uri);
+  // Replace capital letters with lowercase and add spaces before them, trim the result to remove the leading space
+  return camelCaseStr
+    .replace(/([A-Z])/g, " $1")
+    .trim()
+    .toLowerCase();
+}
+
+function toSentenceCase(uri: vscode.Uri): string {
+  const camelCaseStr = toCamelCase(uri);
+  // Replace underscores/dashes and capitalize the first letter of the sentence
+  return camelCaseStr
+    .replace(/([A-Z])/g, " $1") // Add space before capital letters
+    .replace(/[_-]/g, " ") // Replace underscores/dashes with spaces
+    .toLowerCase() // Convert to lower case
+    .trim() // Trim whitespace from the beginning and end
+    .replace(/^\w/, (c) => c.toUpperCase()); // Capitalize the first letter
+}
+
+function toTitleCase(uri: vscode.Uri): string {
+  const camelCaseStr = toCamelCase(uri);
+  // Replace underscores/dashes, split by space, and capitalize the first letter of each word
+  return camelCaseStr
+    .replace(/([A-Z])/g, " $1") // Add space before capital letters
+    .replace(/[_-]/g, " ") // Replace underscores/dashes with spaces
+    .toLowerCase() // Convert to lower case
+    .trim() // Trim whitespace from the beginning and end
+    .split(" ") // Split the string into words
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize the first letter of each word
+    .join(" "); // Rejoin the words with spaces
+}
+
+function convertCamelToSeparator(
+  camelCaseStr: string,
+  separator: string
+): string {
+  return camelCaseStr
+    .replace(/([A-Z])/g, (letter) => `${separator}${letter.toLowerCase()}`)
+    .replace(new RegExp(`^\\${separator}`), "");
+}
+
+function toCamelCase(uri: vscode.Uri): string {
+  const fileName = uri.path.split("/").pop();
   if (!fileName) {
     return "";
   }
 
-  const withoutExtension = fileName.split(".")[0]; // Remove the extension
-  // Convert camelCase or PascalCase to snake_case
-  const snakeCase = withoutExtension.replace(
-    /[A-Z]/g,
-    (letter) => `_${letter.toLowerCase()}`
-  );
+  const withoutExtension = fileName.split(".")[0];
+  return normalizeToCamelCase(withoutExtension);
+}
 
-  return snakeCase.startsWith("_") ? snakeCase.slice(1) : snakeCase; // Remove leading underscore if any
+function normalizeToCamelCase(str: string): string {
+  // Check if the string is already in camelCase
+  if (/^[a-z]+([A-Z][a-z]*)*$/.test(str)) {
+    return str;
+  }
+
+  // Convert to camelCase from other formats
+  return str
+    .toLowerCase()
+    .replace(/[-_ ]+./g, (match) =>
+      match.charAt(match.length - 1).toUpperCase()
+    );
+}
+
+function getRelativeParentDirectory(uri: vscode.Uri): string {
+  const relativeFilePath = getRelativeFilePath(uri);
+  const pathParts = relativeFilePath.split("/");
+  return pathParts.length > 1 ? pathParts.slice(0, -2).join("/") : ""; // Go up one level from the current directory
+}
+
+function getRelativeCurrentDirectory(uri: vscode.Uri): string {
+  const relativeFilePath = getRelativeFilePath(uri);
+  return relativeFilePath.split("/").slice(0, -1).join("/"); // Remove the file part, join the rest
 }
 
 function getRelativeFilePath(uri: vscode.Uri): string {
@@ -222,6 +300,12 @@ function resolvePath(pathToResolve: string): string {
     return path.join(os.homedir(), pathToResolve.slice(1));
   }
   return pathToResolve;
+}
+
+function getVariable(key: string) {
+  return vscode.workspace
+    .getConfiguration()
+    .get<string>("smartTemplates." + key);
 }
 
 export function deactivate() {}

@@ -70,13 +70,26 @@ Below, you will find the templates & regex rules used to make this demo.
 
 ## Available variables
 
-| Variable                    | Description                                                                                 | Example Usage                               |
-| --------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------- |
-| `{{file_path}}`             | Inserts the relative path of the file from the root of your workspace.                      | N/A                                         |
-| `{{date}}`                  | Adds the current date in a localized date string format.                                    | 2023-12-21                                  |
-| `{{file_name_snake_case}}`  | Provides the file name in snake_case format.                                                | `my_new_file` for `path/to/my_new_file.tsx` |
-| `{{file_name_pascal_case}}` | Converts the file name to PascalCase format, useful for classes and components.             | `MyNewFile` for `path/to/my_new_file.tsx`   |
-| `{{file_name_camel_case}}`  | Transforms the file name into camelCase format, typically used for variables and functions. | `myNewFile` for `path/to/my_new_file.tsx`   |
+| Variable                      | Description                                                                                                                                                            | Default / Example Value                       |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
+| `{{oncall}}`                  | Set via the `smartTemplates.oncall` VSCode setting                                                                                                                     | Default: `__ONCALL__`                         |
+| `{{owner}}`                   | Set via the `smartTemplates.owner` VSCode setting                                                                                                                      | Default: `__OWNER__`                          |
+| `{{maintainers}}`             | Set via the `smartTemplates.maintainers` VSCode setting                                                                                                                | Default: `__MAINTAINERS__`                    |
+| `{{author}}`                  | Set via the `smartTemplates.author` VSCode setting                                                                                                                     | Default: `__AUTHOR__`                         |
+| `{{file_path}}`               | Inserts the relative path of the file from the root of your workspace.                                                                                                 | N/A                                           |
+| `{{file_directory}}`          | Inserts the relative directory of the current file. If the file is at the root, this will be an empty string.                                                          | Example: `path/to/my` for path/to/my/file.txt |
+| `{{parent_directory}}`        | Inserts the relative directory one level above the current file's directory. If the file is at the root or there is no parent directory, this will be an empty string. | Example: `path/to` for path/to/my/file.txt    |
+| `{{date}}`                    | Adds the current date in a localized date string format.                                                                                                               | Example: 2023-12-21                           |
+| `{{file_name_snake_case}}`    | Provides the file name in snake_case format.                                                                                                                           | Example: `my_new_file`                        |
+| `{{file_name_pascal_case}}`   | Converts the file name to PascalCase format, useful for classes and components.                                                                                        | Example: `MyNewFile`                          |
+| `{{file_name_camel_case}}`    | Transforms the file name into camelCase format, typically used for variables and functions.                                                                            | Example: `myNewFile`                          |
+| `{{file_name_kebab_case}}`    | Converts the file name to kebab-case format, often used in URLs and file names.                                                                                        | Example: `my-new-file`                        |
+| `{{file_name_constant_case}}` | Transforms the file name into CONSTANT_CASE format, commonly used for constants.                                                                                       | Example: `MY_NEW_FILE`                        |
+| `{{file_name_dot_case}}`      | Provides the file name in dot.case format, used in domains and namespaces.                                                                                             | Example: `my.new.file`                        |
+| `{{file_name_path_case}}`     | Converts the file name to path/case format, resembling file paths.                                                                                                     | Example: `my/new/file`                        |
+| `{{file_name_sentence_case}}` | Transforms the file name into Sentence case, with only the first letter of the first word capitalized.                                                                 | Example: `My new file`                        |
+| `{{file_name_lower_case}}`    | Transforms the file name into lower case, typically used for documentation or descriptions.                                                                            | Example: `my new file`                        |
+| `{{file_name_title_case}}`    | Transforms the file name into Title Case format, where the first letter of each word is capitalized.                                                                   | Example: `My New File`                        |
 
 > **NOTE:** You can add additional variables via the VSCode setting `smartTemplates.customData`.
 
