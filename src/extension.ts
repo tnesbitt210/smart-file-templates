@@ -11,6 +11,13 @@ interface LabelStringPair {
   content: string;
 }
 
+interface TemplateConfig {
+  label: string;
+  template_path: string;
+}
+
+type ConfigType = Record<string, TemplateConfig[]>;
+
 export function activate(context: vscode.ExtensionContext) {
   let createFilesListener = vscode.workspace.onDidCreateFiles((event) => {
     for (const file of event.files) {
@@ -42,13 +49,16 @@ async function showTemplatePicker(newFileUri: vscode.Uri) {
   if (templates.length === 0) {
     return;
   }
-  const templateLabels: string[] = templates.map((t) => t.label);
-  const pickedTemplate = await vscode.window.showQuickPick(templateLabels);
 
-  if (pickedTemplate) {
-    const template = templates.find((t) => t.label === pickedTemplate);
-    if (template) {
-      insertTemplateContent(template.content);
+  const templateLabels: string[] = templates.map((t) => t.label);
+  const pickedLabel = await vscode.window.showQuickPick(templateLabels, {
+    placeHolder: "Select a template",
+  });
+
+  if (pickedLabel) {
+    const selectedTemplate = templates.find((t) => t.label === pickedLabel);
+    if (selectedTemplate) {
+      insertTemplateContent(selectedTemplate.content);
     }
   }
 }
@@ -92,22 +102,21 @@ async function getTemplates(
     const templatesFileUri = Uri.file(templatesFilePath);
     const fileContent = await vscode.workspace.fs.readFile(templatesFileUri);
     const templatesJson = Buffer.from(fileContent).toString("utf-8");
-    const templatesConfig = JSON.parse(templatesJson) as Record<
-      string,
-      { label: string; template_path: string }
-    >;
+    const templatesConfig = JSON.parse(templatesJson) as ConfigType;
+
     return await transformTemplatesConfig(
       templatesConfig,
       workspaceFolders[0],
       newFileUri
     );
-  } catch (_) {
+  } catch (error) {
+    console.error("Error reading templates:", error);
     return [];
   }
 }
 
 async function transformTemplatesConfig(
-  config: Record<string, { label: string; template_path: string }>,
+  config: ConfigType,
   workspaceFolder: WorkspaceFolder,
   newFileUri: vscode.Uri
 ): Promise<LabelStringPair[]> {
@@ -118,33 +127,35 @@ async function transformTemplatesConfig(
       continue;
     }
 
-    const details = config[pattern];
+    const detailsArray = config[pattern];
 
-    // Determine if the path is absolute. If not, resolve it against the workspace folder
-    let templateFilePath = resolvePath(details.template_path);
-    if (!path.isAbsolute(templateFilePath)) {
-      templateFilePath = path.join(
-        workspaceFolder.uri.fsPath,
-        templateFilePath
-      );
-    }
+    for (const details of detailsArray) {
+      // Determine if the path is absolute. If not, resolve it against the workspace folder
+      let templateFilePath = resolvePath(details.template_path);
+      if (!path.isAbsolute(templateFilePath)) {
+        templateFilePath = path.join(
+          workspaceFolder.uri.fsPath,
+          templateFilePath
+        );
+      }
 
-    const templateFileUri = Uri.file(templateFilePath);
+      const templateFileUri = Uri.file(templateFilePath);
 
-    try {
-      const fileContent = await vscode.workspace.fs.readFile(templateFileUri);
-      const templateContent = Buffer.from(fileContent).toString("utf-8");
-      const renderedTemplate = Mustache.render(
-        templateContent,
-        getMustacheData(newFileUri)
-      );
+      try {
+        const fileContent = await vscode.workspace.fs.readFile(templateFileUri);
+        const templateContent = Buffer.from(fileContent).toString("utf-8");
+        const renderedTemplate = Mustache.render(
+          templateContent,
+          getMustacheData(newFileUri)
+        );
 
-      templates.push({
-        label: details.label,
-        content: renderedTemplate,
-      });
-    } catch (_) {
-      // Continue processing other templates
+        templates.push({
+          label: details.label,
+          content: renderedTemplate,
+        });
+      } catch (_) {
+        // Continue processing other templates
+      }
     }
   }
   return templates;

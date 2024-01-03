@@ -13,7 +13,7 @@ Below, you will find the templates & regex rules used to make this demo.
 1.  Install [Smart File Templates](https://marketplace.visualstudio.com/items?itemName=TrevorNesbitt.smart-file-templates) from the Visual Studio Code Marketplace to integrate it into your VSCode setup.
     <br>
 
-2.  **Create .fileTemplates.json**: Use this file to set up rules that determine which templates are suggested for newly created files in your project. Define each rule using a regex pattern as the key, and assign a corresponding object `{"label": string, "template_path": string}` as its value. The 'label' is a descriptive name for the template, and 'template_path' is the relative path to the template file itself.
+2.  **Create .fileTemplates.json**: Use this file to set up rules that determine which templates are suggested for newly created files in your project. Define each rule using a regex pattern as the key, and assign a corresponding list of objects `{"label": string, "template_path": string}` as its value. The 'label' is a descriptive name for the template, and 'template_path' is the relative path to the template file itself.
 
     <br>
     The following JSON was used in the above demo:
@@ -24,14 +24,18 @@ Below, you will find the templates & regex rules used to make this demo.
     >
     > ```json
     > {
-    >   ".*\\.tsx": {
-    >     "label": "React Component",
-    >     "template_path": ".templates/react_component.template"
-    >   },
-    >   ".*\\.test\\.ts": {
-    >     "label": "Jest Test",
-    >     "template_path": ".templates/jest_test.template"
-    >   }
+    >   ".*\\.tsx": [
+    >     {
+    >       "label": "React Component",
+    >       "template_path": ".templates/react_component.template"
+    >     }
+    >   ],
+    >   ".*\\.test\\.ts": [
+    >     {
+    >       "label": "Jest Test",
+    >       "template_path": ".templates/jest_test.template"
+    >     }
+    >   ]
     > }
     > ```
 
