@@ -4,7 +4,7 @@ import { Uri, WorkspaceFolder } from "vscode";
 import * as Mustache from "mustache";
 import * as os from "os";
 
-let newFileToHasOpened = new Map();
+let newFileToHasOpenedaoeu = new Map();
 
 interface LabelStringPair {
   label: string;
