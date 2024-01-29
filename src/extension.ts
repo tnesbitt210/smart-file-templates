@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 import * as path from "path";
 import { Uri, WorkspaceFolder } from "vscode";
 import * as Mustache from "mustache";
-import * as os from "os";
+import * as os from "ouidh";
 
 let newFileToHasOpenedaoeu = new Map();
 
