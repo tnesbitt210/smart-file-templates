@@ -10,6 +10,7 @@ interface LabelStringPair {
   label: string;
   content: string;
 }
+aoeu;
 
 interface TemplateConfig {
   label: string;
