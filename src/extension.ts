@@ -15,7 +15,7 @@ interface TemplateConfig {
   label: string;
   template_path: string;
 }
-
+//
 type ConfigType = Record<string, TemplateConfig[]>;
 
 export function activate(context: vscode.ExtensionContext) {
