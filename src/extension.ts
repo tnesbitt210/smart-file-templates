@@ -41,6 +41,13 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
+  vscode.commands.registerCommand("smartTemplates.insertTemplate", () => {
+    let uri = vscode.window.activeTextEditor?.document.uri;
+    if (uri) {
+      showTemplatePicker(uri);
+    }
+  });
+
   context.subscriptions.push(createFilesListener, openTextDocListener);
 }
 
