@@ -3,7 +3,7 @@
   "displayName": "Smart File Templates",
   "description": "Automate your coding workflow with custom dynamic templates. Use regex rules to define the templates that are intelligently recommended for new files. Set up boilerplate code snippets and quickstart your development process.",
   "icon": "./icon.png",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "engines": {
     "vscode": "^1.85.0"
   },
