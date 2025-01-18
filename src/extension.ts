@@ -41,6 +41,13 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
+  vscode.commands.registerCommand("smartTemplates.insertTemplate", () => {
+    let uri = vscode.window.activeTextEditor?.document.uri;
+    if (uri) {
+      showTemplatePicker(uri);
+    }
+  });
+
   context.subscriptions.push(createFilesListener, openTextDocListener);
 }
 
@@ -171,6 +178,10 @@ function getMustacheData(uri: vscode.Uri): Record<string, any> {
     file_directory: getRelativeCurrentDirectory(uri),
     parent_directory: getRelativeParentDirectory(uri),
     date: new Date().toISOString().split("T")[0], // Format as YYYY-MM-DD
+    file_name_with_ext: fileNameWithExt(uri),
+    file_name: fileName(uri),
+    file_ext: fileExt(uri),
+    file_extension: toPascalCase(uri),
     file_name_pascal_case: toPascalCase(uri),
     file_name_camel_case: toCamelCase(uri),
     file_name_snake_case: toSnakeCase(uri),
@@ -259,6 +270,18 @@ function convertCamelToSeparator(
   return camelCaseStr
     .replace(/([A-Z])/g, (letter) => `${separator}${letter.toLowerCase()}`)
     .replace(new RegExp(`^\\${separator}`), "");
+}
+
+function fileNameWithExt(uri: vscode.Uri): string {
+  return path.basename(uri.fsPath);
+}
+
+function fileName(uri: vscode.Uri): string {
+  return path.basename(uri.fsPath, path.extname(uri.fsPath));
+}
+
+function fileExt(uri: vscode.Uri): string {
+  return path.extname(uri.fsPath).slice(1);
 }
 
 function toCamelCase(uri: vscode.Uri): string {

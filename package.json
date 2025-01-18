@@ -58,7 +58,13 @@
           "description": "Custom data for file templates. Define key-value pairs to use in your templates."
         }
       }
-    }
+    },
+    "commands": [
+      {
+        "command": "smartTemplates.insertTemplate",
+        "title": "Smart Templates: Insert Template"
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
