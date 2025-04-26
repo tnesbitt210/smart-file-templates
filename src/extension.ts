@@ -5,7 +5,7 @@ import * as Mustache from "mustache";
 import * as os from "os";
 
 let newFileToHasOpened = new Map();
-
+//
 interface LabelStringPair {
   label: string;
   content: string;
